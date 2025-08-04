@@ -74,7 +74,7 @@ export default function UploadPage() {
         const err = await res.text();
         setStatus(`❌ Błąd: ${err}`);
       }
-    } catch (error) {
+    } catch {
       setStatus("❌ Wystąpił błąd podczas przesyłania pliku");
     }
 

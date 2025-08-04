@@ -6,6 +6,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+interface Photo {
+  _id: string;
+  imageUrl: string;
+  dateTaken?: Date;
+  location?: {
+    lat?: number;
+    lon?: number;
+  };
+}
+
 interface LocationPageProps {
   params: {
     year: string;
@@ -55,7 +65,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {photos.map((photo: any) => (
+        {photos.map((photo: Photo) => (
           <div key={photo._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
             <div className="relative w-full h-48">
               <Image

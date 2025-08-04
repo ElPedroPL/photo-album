@@ -32,7 +32,7 @@ export default function UploadForm() {
         const error = await res.text();
         setStatus(`❌ Błąd: ${error}`);
       }
-    } catch (err) {
+    } catch {
       setStatus("❌ Wystąpił błąd podczas przesyłania.");
     }
 

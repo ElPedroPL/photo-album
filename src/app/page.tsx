@@ -38,9 +38,21 @@ export default async function HomePage() {
 
   const photos = await ImageModel.find({ userId: session.user.email }).sort({ year: -1, createdAt: -1 });
 
+interface Photo {
+  _id: string;
+  imageUrl: string;
+  dateTaken?: Date;
+  year?: number;
+  location?: {
+    name?: string;
+    lat?: number;
+    lon?: number;
+  };
+}
+
   // Grupuj zdjęcia według roku
-  const photosByYear = photos.reduce((acc: any, photo: any) => {
-    const year = photo.year || new Date(photo.dateTaken).getFullYear();
+  const photosByYear = photos.reduce((acc: Record<number, Photo[]>, photo: Photo) => {
+    const year = photo.year || new Date(photo.dateTaken || new Date()).getFullYear();
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -49,8 +61,8 @@ export default async function HomePage() {
   }, {});
 
   // Grupuj zdjęcia według lokalizacji w ramach roku
-  const organizePhotosByLocation = (photos: any[]) => {
-    return photos.reduce((acc: any, photo: any) => {
+  const organizePhotosByLocation = (photos: Photo[]) => {
+    return photos.reduce((acc: Record<string, Photo[]>, photo: Photo) => {
       const location = photo.location?.name || "Nieznana lokalizacja";
       if (!acc[location]) {
         acc[location] = [];
