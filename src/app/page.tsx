@@ -58,7 +58,7 @@ interface Photo {
     }
     acc[year].push(photo);
     return acc;
-  }, {});
+  }, {} as Record<number, Photo[]>);
 
   // Grupuj zdjęcia według lokalizacji w ramach roku
   const organizePhotosByLocation = (photos: Photo[]) => {
@@ -69,7 +69,7 @@ interface Photo {
       }
       acc[location].push(photo);
       return acc;
-    }, {});
+    }, {} as Record<string, Photo[]>);
   };
 
   return (

@@ -3,6 +3,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectDB } from "@/app/lib/db";
 import UserModel from "@/app/models/user";
 import bcrypt from "bcrypt";
+import { JWT } from "next-auth/jwt";
+import { Session } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -52,7 +54,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (token?.sub && session.user) {
         (session.user as { id?: string }).id = token.sub;
       }

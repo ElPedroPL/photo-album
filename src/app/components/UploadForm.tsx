@@ -29,8 +29,8 @@ export default function UploadForm() {
         setStatus("✅ Zdjęcie przesłane pomyślnie!");
         setFile(null);
       } else {
-        const error = await res.text();
-        setStatus(`❌ Błąd: ${error}`);
+        const errorText = await res.text();
+        setStatus(`❌ Błąd: ${errorText}`);
       }
     } catch {
       setStatus("❌ Wystąpił błąd podczas przesyłania.");

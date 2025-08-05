@@ -17,10 +17,10 @@ interface Photo {
 }
 
 interface LocationPageProps {
-  params: {
+  params: Promise<{
     year: string;
     location: string;
-  };
+  }>;
 }
 
 export default async function LocationPage({ params }: LocationPageProps) {
@@ -32,7 +32,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
   await connectDB();
 
-  const { year, location } = params;
+  const { year, location } = await params;
   const decodedLocation = decodeURIComponent(location);
 
   const photos = await ImageModel.find({

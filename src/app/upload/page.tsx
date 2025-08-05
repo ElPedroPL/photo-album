@@ -71,8 +71,8 @@ export default function UploadPage() {
         const fileInput = document.getElementById("file-input") as HTMLInputElement;
         if (fileInput) fileInput.value = "";
       } else {
-        const err = await res.text();
-        setStatus(`❌ Błąd: ${err}`);
+        const errorText = await res.text();
+        setStatus(`❌ Błąd: ${errorText}`);
       }
     } catch {
       setStatus("❌ Wystąpił błąd podczas przesyłania pliku");
